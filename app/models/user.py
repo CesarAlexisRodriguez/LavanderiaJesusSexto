@@ -14,3 +14,16 @@ class User(db.Model):
 
     #relaciones inversas
     orders = db.relationship('Order', backref='users', lazy=True)
+
+    def to_dict(self, orders: bool = False):
+        user = {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'rol': self.rol,
+            'state': self.state,
+            'created_at': self.created_at,
+        }
+        if orders:
+            user['orders'] = self.orders
+        return user
